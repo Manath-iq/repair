@@ -73,8 +73,13 @@ const cards = [...document.querySelectorAll('.stg__c')];
 
 if (plan && cards.length) {
   const show = (card) => {
-    const g = plan.querySelector(`[data-layer="${card.dataset.stage}"]`);
-    g?.classList.add('on');
+    // Слои накопительные: включается не только свой, но и все предыдущие.
+    // Иначе при быстром пролистывании или переходе по якорю квартира
+    // оказывается с чистовой отделкой, но без перегородок.
+    const i = cards.indexOf(card);
+    cards.slice(0, i + 1).forEach((c) => {
+      plan.querySelector(`[data-layer="${c.dataset.stage}"]`)?.classList.add('on');
+    });
     card.classList.add('is-live');
     // Прогресс идёт только вперёд: пролистав вверх, оплаченное не отматываем.
     const pay = +card.dataset.pay;

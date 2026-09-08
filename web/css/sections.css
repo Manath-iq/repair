@@ -72,7 +72,7 @@
 .hero__ph::after{content:'';position:absolute;inset:0;
   background:
     linear-gradient(to left,rgba(20,20,26,.66) 0%,rgba(20,20,26,.34) 22%,rgba(20,20,26,0) 52%),
-    linear-gradient(to top,rgba(20,20,26,.92) 0%,rgba(20,20,26,.72) 26%,rgba(20,20,26,.3) 52%,rgba(20,20,26,.06) 72%,rgba(20,20,26,.22) 100%)}
+    linear-gradient(to top,rgba(20,20,26,.92) 0%,rgba(20,20,26,.74) 28%,rgba(20,20,26,.42) 56%,rgba(20,20,26,.14) 76%,rgba(20,20,26,.3) 100%)}
 .hero__ph img{width:100%;height:100%;object-fit:cover;object-position:64% 50%;
   filter:saturate(.92) contrast(1.04);
   animation:heroIn 1.1s var(--ease) both}
@@ -83,8 +83,8 @@
 /* В hero заголовок мельче общей шкалы: на фотографии он конкурирует не с
    пустым полем, а с кадром, и 88px просто выдавливают текст за карточку. */
 .hero__body .h1{font-size:clamp(30px,4.1vw,56px)}
-.hero__eye{color:var(--dark-ink-2)}
-.hero__eye::before{background:var(--dark-line)}
+.hero__eye{color:var(--dark-ink);text-shadow:0 1px 12px rgba(20,20,26,.85),0 0 28px rgba(20,20,26,.5)}
+.hero__eye::before{background:rgba(255,255,255,.55)}
 .hero__body .h1{color:var(--dark-ink)}
 .hero__body .acc{color:var(--dark-accent)}
 .hero__meta{display:flex;flex-wrap:wrap;gap:10px;color:var(--dark-ink);font-size:12px}
@@ -177,13 +177,13 @@
   .hero__ph img{object-position:50% 50%}
   .hero__calls{display:block}
   .cl__t{display:block}
-  /* Подписи выровнены по одной вертикали справа, а не каждая по-своему.
-     Левая половина кадра отдана заголовку — выноски туда не заходят. */
-  .cl__t{right:4.4%;transform:translateY(-50%);text-align:right}
-  .cl__t--1{top:88%}
-  .cl__t--2{top:76%}
-  .cl__t--3{top:48%}
-  .cl__t--4{top:34%}
+  /* Подписи стоят на одной вертикали и растут вправо: при выравнивании
+     по правому краю полка выноски уезжает под текст разной длины. */
+  .cl__t{left:71%;transform:translateY(-50%)}
+  .cl__t--1{top:89%}
+  .cl__t--2{top:75.8%}
+  .cl__t--3{top:48.4%}
+  .cl__t--4{top:31.6%}
   .calls-m{display:none}
   .hero__msg{display:flex}
   .hero__body{padding:calc(var(--gut) + 8px)}
@@ -218,7 +218,9 @@
 @media(min-width:900px){
   .nums__grid{grid-template-columns:.85fr 1.15fr;gap:20px}
   .nums__ph{aspect-ratio:auto;height:100%}
-  .nums__cells{gap:20px}
+  /* Плитки хватают собственную высоту, а не тянутся по строке: ровный ряд
+     одинаковых карточек — первый признак сгенерированной страницы. */
+  .nums__cells{gap:20px;align-items:start}
   .num{padding:28px}
   /* Правая колонка опущена ниже базовой линии, а не выровнена по ней:
      ровный ряд одинаковых плиток — первый признак сгенерированной страницы. */
@@ -399,7 +401,8 @@
 .plan .dot{fill:var(--accent);stroke:none}
 .plan .box{stroke:var(--ink);stroke-width:1.6}
 .plan .hair{stroke:var(--ink-2);stroke-width:.8}
-.plan .hx path,.plan .brd,.plan .tile{stroke:var(--line);stroke-width:1}
+.plan .hx path{stroke:var(--line);stroke-width:1}
+.plan .brd,.plan .tile{stroke:var(--line-strong);stroke-width:1}
 .plan .fix{stroke:var(--ink-2);stroke-width:1.4}
 .plan .lamp,.plan .lamp-x{stroke:var(--accent);stroke-width:1.2}
 .plan text{font:500 12px var(--f-b);fill:var(--ink-2);text-anchor:middle;stroke:none}
