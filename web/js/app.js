@@ -31,10 +31,14 @@ document.querySelectorAll('.hero__calls path').forEach((p) => {
   p.style.setProperty('--len', Math.ceil(p.getTotalLength()) + 1);
 });
 
-/* ── Шапка ──────────────────────────────────────────────────────────── */
+/* ── Шапка и липкая панель ──────────────────────────────────────────── */
 const hdr = document.querySelector('.hdr');
 const bar = document.getElementById('bar');
 const hero = document.querySelector('.hero');
+// Объявлено до onScroll: при перезагрузке страницы со скроллом браузер
+// восстанавливает позицию, первый же вызов доходит до menuOpen — и весь
+// модуль падает в temporal dead zone вместе с калькулятором и формой.
+let menuOpen = false;
 
 const onScroll = () => {
   hdr?.classList.toggle('is-stuck', scrollY > 40);
@@ -49,7 +53,6 @@ onScroll();
 /* ── Меню ───────────────────────────────────────────────────────────── */
 const burger = document.getElementById('burger');
 const menu = document.getElementById('menu');
-let menuOpen = false;
 
 const setMenu = (open) => {
   menuOpen = open;
