@@ -277,13 +277,17 @@
 }
 
 /* ── Горизонтальные ленты ────────────────────────────────────────────── */
-.rail{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
+.rail{--rail-pad:max(var(--gut),calc((100% - var(--max)) / 2 + var(--gut)));
+  overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
+  /* Без scroll-padding снап прижимает первую карточку к краю экрана и съедает
+     собственный отступ ленты — карточка встаёт левее заголовка секции. */
+  scroll-padding-inline-start:var(--rail-pad);
   scrollbar-width:none;-ms-overflow-style:none}
 .rail::-webkit-scrollbar{display:none}
 /* Лента полноэкранная, но первая карточка обязана начинаться там же, где
    заголовок секции, иначе блок читается как чужой кусок вёрстки. */
 .rail__in{display:flex;gap:14px;width:max-content;padding-bottom:4px;
-  padding-inline:max(var(--gut),calc((100% - var(--max)) / 2 + var(--gut)))}
+  padding-inline:var(--rail-pad)}
 @media(min-width:900px){ .rail__in{gap:20px} }
 
 /* ── Пять уровней ────────────────────────────────────────────────────── */
