@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 150" fill="none"><defs>
+<pattern id="p-brick" width="14" height="10" patternUnits="userSpaceOnUse">
+  <rect width="14" height="10" fill="#FFFFFF"/><path d="M0 5h14M7 0v5M0 5v5" stroke="#D3CEC5" stroke-width="1"/></pattern>
+<pattern id="p-wool" width="8" height="8" patternUnits="userSpaceOnUse">
+  <rect width="8" height="8" fill="#FFFFFF"/><path d="M0 8 8 0M-2 2 2-2M6 10l4-4" stroke="#D3CEC5" stroke-width="1"/></pattern>
+<pattern id="p-plaster" width="6" height="6" patternUnits="userSpaceOnUse">
+  <rect width="6" height="6" fill="#FFFFFF"/><circle cx="3" cy="3" r=".8" fill="#D3CEC5"/></pattern>
+<pattern id="p-deco" width="6" height="6" patternUnits="userSpaceOnUse">
+  <rect width="6" height="6" fill="#FFFFFF"/><path d="M0 6 6 0" stroke="#B4622F" stroke-width="1"/></pattern>
+</defs><style>text{font:400 8px "Martian Mono",monospace;fill:#666670}.ed{stroke:#14141A;stroke-width:1}.dim{stroke:#D3CEC5;stroke-width:1}</style><rect x="22.0" y="30" width="88.4" height="82" fill="url(#p-brick)" class="ed"/><rect x="112.4" y="30" width="7.8" height="82" fill="#D3CEC5" class="ed"/><rect x="122.2" y="30" width="57.2" height="82" fill="url(#p-plaster)" class="ed"/><rect x="181.4" y="30" width="13.0" height="82" fill="#D3CEC5" class="ed"/><rect x="196.4" y="30" width="15.6" height="82" fill="#14141A" class="ed"/><path d="M22 124h190.0" class="dim"/><path d="M22 120v8M212.0 120v8" class="dim"/><text x="22" y="140">5 слоёв</text><text x="22" y="20">— 03</text></svg>

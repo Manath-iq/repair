@@ -1,0 +1,84 @@
+/**
+ * Единственное место, где живут цвета и размеры.
+ * Правило: ни одного хекса вне этого файла — проверяется scripts/check.mjs.
+ *
+ * Направление — тёплый светлый премиум. Полотно не белое, а офф-вайт;
+ * белый существует только как карточка поверх него. Контраст полотна
+ * и карточки и есть вся глубина: теней почти нет.
+ *
+ * Соотношение 75 / 15 / 10 — светлое, тёмные пятна, акцент.
+ * Акцент живёт только на действии и на ключевой цифре.
+ */
+:root{
+  /* Полотно и поверхности */
+  --canvas:#F3F1ED;
+  --canvas-2:#EFEDE8;
+  --surface:#FFFFFF;
+  --surface-sunk:#EAE7E1;
+
+  /* Текст */
+  --ink:#14141A;
+  --ink-2:#55555E;
+  --ink-3:#666670;
+
+  /* Линии */
+  --line:#E4E0D9;
+  --line-strong:#D3CEC5;
+
+  /* Акцент. --accent — только заливки, графика и текст от 18px.
+     Для текста любого кегля существует --accent-ink: 5,1:1 на полотне. */
+  --accent:#B4622F;
+  --accent-ink:#9A5127;
+  --accent-soft:#F2E4DA;
+
+  /* Тёмные пятна: секция разреза, карточка заявки, футер */
+  --dark-bg:#101014;
+  --dark-surface:#1A1A20;
+  --dark-ink:#F2F0EC;
+  --dark-ink-2:#A0A0AA;
+  --dark-line:rgba(255,255,255,.14);
+  --dark-line-2:rgba(255,255,255,.07);
+  --dark-accent:#D98B4A;
+  --dark-accent-soft:rgba(217,139,74,.14);
+
+  /* Гарнитуры: дисплейная, основная, данные */
+  --f-d:'Geologica','Onest',system-ui,sans-serif;
+  --f-b:'Onest',system-ui,-apple-system,sans-serif;
+  --f-m:'Martian Mono',ui-monospace,'SF Mono',monospace;
+
+  /* Шкала. Заголовки прижатые, трекинг тугой. */
+  --fs-h1:clamp(40px,6.2vw,88px);
+  --fs-h2:clamp(30px,4.2vw,56px);
+  --fs-h3:clamp(21px,2vw,28px);
+  --fs-h4:18px;
+  --fs-body-l:18px;
+  --fs-body:16px;
+  --fs-cap:13px;
+  --fs-eyebrow:11px;
+  --fs-data:14px;
+  --fs-data-xl:clamp(40px,5vw,72px);
+  --fs-callout:11px;
+
+  /* Сетка */
+  --gut:20px;
+  --max:1240px;
+  --sec:clamp(80px,9vw,160px);
+  --head-gap:clamp(32px,4vw,64px);
+
+  /* Радиусы: 32 у панелей, 999 у всего кликабельного */
+  --r-panel:32px;
+  --r-photo:24px;
+  --r-cell:20px;
+  --r-field:16px;
+  --r-pill:999px;
+
+  /* Тени. Их ровно две, и вторая — только на кликабельном при наведении. */
+  --shadow-rest:0 1px 2px rgba(20,20,26,.04);
+  --shadow-hover:0 14px 36px -14px rgba(20,20,26,.16);
+
+  /* Одна кривая на всю страницу. Пружинная, без отскока. */
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+@media(min-width:640px){ :root{ --gut:32px } }
+@media(min-width:1200px){ :root{ --gut:48px } }

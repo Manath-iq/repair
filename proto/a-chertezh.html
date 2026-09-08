@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>А · Чертёж</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;800&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080A; --bg2:#101014; --ink:#EFEDE8; --ink2:#8E8E96; --ink3:#5A5A62;
+  --line:rgba(255,255,255,.13); --line2:rgba(255,255,255,.28);
+  --acid:#CCFF33;
+  --f-d:'Geologica',system-ui,sans-serif; --f-m:'Martian Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-d);font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* Миллиметровка на фоне — не декор, а сетка чертежа */
+.grid{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:120px 120px;opacity:.35;
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 0%,#000 0%,transparent 78%);
+          mask-image:radial-gradient(120% 90% at 50% 0%,#000 0%,transparent 78%)}
+
+.wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:0 28px}
+
+/* ── Шапка: рамка, а не капсула ── */
+.top{display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:20px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:baseline;gap:14px}
+.brand b{font-family:var(--f-d);font-weight:800;font-size:19px;letter-spacing:-.04em}
+.brand span{font-family:var(--f-m);font-size:9px;letter-spacing:.18em;color:var(--ink3);text-transform:uppercase}
+.nav{display:flex;gap:26px;font-family:var(--f-m);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink2)}
+.nav a:hover{color:var(--acid)}
+.tel{font-family:var(--f-m);font-size:12px;letter-spacing:.02em}
+.tel b{color:var(--acid);font-weight:400}
+
+/* ── Строка спецификации над героем ── */
+.specbar{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.specbar div{padding:14px 0;border-right:1px solid var(--line)}
+.specbar div:last-child{border-right:0}
+.specbar dt{font-family:var(--f-m);font-size:9px;letter-spacing:.14em;color:var(--ink3);text-transform:uppercase}
+.specbar dd{font-family:var(--f-m);font-size:15px;margin-top:7px;letter-spacing:-.01em}
+
+/* ── Герой ── */
+.hero{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
+  gap:48px;align-items:center;padding:64px 0 40px}
+.tag{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-m);font-size:9.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--acid);
+  border:1px solid var(--line2);border-radius:2px;padding:6px 11px}
+h1{font-weight:800;font-size:clamp(38px,4.9vw,74px);line-height:.92;letter-spacing:-.045em;margin-top:26px}
+h1 i{font-style:normal;color:var(--ink3)}
+h1 u{text-decoration:none;color:var(--acid)}
+.sub{margin-top:24px;max-width:44ch;color:var(--ink2);font-size:16px;line-height:1.55}
+.act{display:flex;gap:12px;align-items:center;margin-top:34px;flex-wrap:wrap}
+.btn{font-family:var(--f-m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:16px 24px;border:1px solid var(--acid);background:var(--acid);color:#0B0B0D;border-radius:2px;
+  transition:background .18s,color .18s}
+.btn:hover{background:transparent;color:var(--acid)}
+.btn2{font-family:var(--f-m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:16px 24px;border:1px solid var(--line2);border-radius:2px;color:var(--ink2)}
+.btn2:hover{border-color:var(--ink);color:var(--ink)}
+.micro{margin-top:22px;font-family:var(--f-m);font-size:10px;letter-spacing:.06em;color:var(--ink3);line-height:2}
+
+/* ── Лист чертежа ── */
+.sheet{position:relative;border:1px solid var(--line);background:
+  radial-gradient(120% 100% at 30% 0%,rgba(204,255,51,.05),transparent 62%),var(--bg2)}
+.sheet__hd{display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--line);
+  font-family:var(--f-m);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.sheet svg{display:block;width:100%;height:auto}
+.sheet__ft{display:flex;justify-content:space-between;padding:11px 16px;border-top:1px solid var(--line);
+  font-family:var(--f-m);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+
+/* Штриховки и линии чертежа */
+.dl{stroke:var(--line2);stroke-width:1}
+.dtxt{font-family:var(--f-m);font-size:11px;fill:var(--acid);letter-spacing:.02em}
+.ltxt{font-family:var(--f-m);font-size:11px;fill:var(--ink);letter-spacing:.04em}
+.ltxt tspan{fill:var(--ink3);font-size:9px}
+.edge{stroke:var(--ink);stroke-width:1.7;fill:none}
+.lead{stroke:rgba(255,255,255,.42);stroke-width:1;fill:none}
+.dot{fill:var(--acid)}
+
+/* Анимация прочерчивания */
+.draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:dash 1.1s cubic-bezier(.16,1,.3,1) forwards}
+.draw2{opacity:0;animation:fade .5s ease forwards}
+@keyframes dash{to{stroke-dashoffset:0}}
+@keyframes fade{to{opacity:1}}
+
+@media(max-width:1000px){
+  .hero{grid-template-columns:1fr;gap:36px;padding-top:40px}
+  .specbar{grid-template-columns:1fr 1fr}
+  .specbar div:nth-child(2){border-right:0}
+  .specbar div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .nav{display:none}
+}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand"><b>РОВНО</b><span>ремонт квартир</span></div>
+    <nav class="nav"><a href="#">Смета</a><a href="#">Узлы</a><a href="#">Этапы</a><a href="#">Объекты</a><a href="#">Договор</a></nav>
+    <div class="tel">+7 000 000-00-00 · <b>WhatsApp</b></div>
+  </header>
+
+  <dl class="specbar">
+    <div><dt>Объект</dt><dd>2-комн. 62 м²</dd></div>
+    <div><dt>Работы</dt><dd>от 9 900 ₽/м²</dd></div>
+    <div><dt>Срок</dt><dd>62 дня</dd></div>
+    <div><dt>Отклонение сметы</dt><dd>±3 %</dd></div>
+  </dl>
+
+  <section class="hero">
+    <div>
+      <span class="tag">Узел 01 · пол / стена</span>
+      <h1>Вот за что вы<br>платите <u>9 900</u><br><i>вместо</i> 4 000</h1>
+      <p class="sub">Всё, что видно после ремонта, стоит одинаково. Разница — в пяти слоях,
+        которых потом не увидеть и не переделать, не сломав чистовую отделку.</p>
+      <div class="act">
+        <a class="btn" href="#">Рассчитать смету</a>
+        <a class="btn2" href="#">Все узлы →</a>
+      </div>
+      <p class="micro">Замер бесплатно · смета за 1 день<br>214 квартир с 2014 · Казань, Челны, Нижнекамск</p>
+    </div>
+
+    <figure class="sheet">
+      <div class="sheet__hd"><span>Узел примыкания · разрез 1—1</span><span>М 1:2</span></div>
+      <svg viewBox="0 0 880 560" role="img" aria-label="Разрез узла примыкания пола к стене">
+        <defs>
+          <pattern id="conc" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="4" r="1.1" fill="#9A9AA2"/><circle cx="10" cy="10" r="1.1" fill="#9A9AA2"/>
+            <path d="M7 2l2 3H5z" fill="#70707A"/>
+          </pattern>
+          <pattern id="iso" width="18" height="9" patternUnits="userSpaceOnUse">
+            <path d="M0 4.5q4.5-5 9 0t9 0" fill="none" stroke="#9A9AA2" stroke-width="1"/>
+          </pattern>
+          <pattern id="scr" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="9" stroke="#9A9AA2" stroke-width=".9"/>
+          </pattern>
+          <pattern id="plas" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+            <line x1="0" y1="0" x2="0" y2="7" stroke="#9A9AA2" stroke-width=".8"/>
+          </pattern>
+          <marker id="tick" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+            <line x1="2" y1="8" x2="8" y2="2" stroke="#ffffff47" stroke-width="1.2"/>
+          </marker>
+        </defs>
+
+        <!-- ПОЛ, снизу вверх -->
+        <g class="draw2" style="animation-delay:.05s">
+          <rect x="120" y="430" width="640" height="86" fill="url(#conc)"/><rect x="120" y="430" width="640" height="86" class="edge"/>
+          <rect x="230" y="398" width="530" height="32" fill="url(#iso)"/><rect x="230" y="398" width="530" height="32" class="edge"/>
+          <rect x="230" y="330" width="530" height="68" fill="url(#scr)"/><rect x="230" y="330" width="530" height="68" class="edge"/>
+          <rect x="230" y="322" width="530" height="8" fill="#33333B"/><rect x="230" y="322" width="530" height="8" class="edge"/>
+          <rect x="230" y="304" width="530" height="18" fill="#4A4A54"/><rect x="230" y="304" width="530" height="18" class="edge"/>
+        </g>
+
+        <!-- СТЕНА, слева направо -->
+        <g class="draw2" style="animation-delay:.18s">
+          <rect x="120" y="60" width="86" height="370" fill="url(#conc)"/><rect x="120" y="60" width="86" height="370" class="edge"/>
+          <rect x="206" y="60" width="20" height="370" fill="url(#plas)"/><rect x="206" y="60" width="20" height="370" class="edge"/>
+          <rect x="226" y="60" width="6" height="370" fill="#33333B"/><rect x="226" y="60" width="6" height="370" class="edge"/>
+        </g>
+
+        <!-- Демпферная лента в углу -->
+        <g class="draw2" style="animation-delay:.3s">
+          <rect x="222" y="304" width="8" height="126" fill="#CCFF33" opacity=".55"/>
+          <rect x="222" y="304" width="8" height="126" class="edge"/>
+        </g>
+
+        <!-- Размерная цепочка справа -->
+        <g class="draw2" style="animation-delay:.45s">
+          <line x1="800" y1="304" x2="800" y2="516" class="dl"/>
+          <g stroke="#ffffff47" stroke-width="1">
+            <line x1="770" y1="304" x2="812" y2="304"/><line x1="770" y1="322" x2="812" y2="322"/>
+            <line x1="770" y1="330" x2="812" y2="330"/><line x1="770" y1="398" x2="812" y2="398"/>
+            <line x1="770" y1="430" x2="812" y2="430"/>
+          </g>
+          <text class="dtxt" x="820" y="317">12</text>
+          <text class="dtxt" x="820" y="331">3</text>
+          <text class="dtxt" x="820" y="368">60</text>
+          <text class="dtxt" x="820" y="418">50</text>
+        </g>
+
+        <!-- Размер стены сверху -->
+        <g class="draw2" style="animation-delay:.55s">
+          <line x1="206" y1="40" x2="232" y2="40" class="dl" marker-start="url(#tick)" marker-end="url(#tick)"/>
+          <line x1="206" y1="34" x2="206" y2="56" class="dl"/><line x1="232" y1="34" x2="232" y2="56" class="dl"/>
+          <text class="dtxt" x="240" y="44">20 + 2</text>
+        </g>
+
+        <!-- Выноски -->
+        <g class="draw2" style="animation-delay:.68s">
+          <circle class="dot" cx="470" cy="360" r="3"/><path class="lead" d="M470 360 L470 224 L560 224"/>
+          <text class="ltxt" x="566" y="221">Стяжка полусухая 60 мм<tspan x="566" dy="14">армирована фиброй</tspan></text>
+
+          <circle class="dot" cx="470" cy="414" r="3"/><path class="lead" d="M470 414 L470 470 L560 470"/>
+          <text class="ltxt" x="566" y="467">Звукоизоляция 50 мм<tspan x="566" dy="14">минеральная, под стяжку</tspan></text>
+
+          <circle class="dot" cx="216" cy="150" r="3"/><path class="lead" d="M216 150 L340 150 L340 118 L430 118"/>
+          <text class="ltxt" x="436" y="115">Штукатурка по маякам<tspan x="436" dy="14">отклонение ≤ 2 мм на 2 м</tspan></text>
+
+          <circle class="dot" cx="226" cy="368" r="3"/><path class="lead" d="M226 368 L150 368 L150 545"/>
+          <text class="ltxt" x="118" y="556">Демпферная лента 8 мм</text>
+        </g>
+      </svg>
+      <div class="sheet__ft"><span>РОВНО · спецификация работ</span><span>лист 1 из 6</span></div>
+    </figure>
+  </section>
+
+</div>
+</body>
+</html>

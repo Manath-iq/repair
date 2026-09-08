@@ -1,0 +1,26 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "rovno",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "web/scripts/serve.py",
+        "4321"
+      ],
+      "port": 4321
+    },
+    {
+      "name": "proto",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8899",
+        "--directory",
+        "proto"
+      ],
+      "port": 8899
+    }
+  ]
+}

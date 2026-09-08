@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Б · Разворот</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=Onest:wght@400;500&family=Martian+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEAE3; --paper2:#F6F4EF; --ink:#15150F; --ink2:#57574E; --ink3:#8C8C82;
+  --line:#C9C5B8; --red:#D8341F;
+  --f-d:'Oswald',sans-serif; --f-b:'Onest',system-ui,sans-serif; --f-m:'Martian Mono',monospace;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-b);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+.wrap{max-width:1420px;margin:0 auto;padding:0 32px}
+
+/* ── Шапка: тонкая типографская линейка ── */
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+  padding:22px 0 12px;border-bottom:2px solid var(--ink)}
+.brand b{font-family:var(--f-d);font-weight:600;font-size:26px;letter-spacing:.02em;
+  text-transform:uppercase;line-height:1}
+.brand span{display:block;font-family:var(--f-m);font-size:8.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink3);margin-top:5px}
+.nav{display:flex;gap:24px;font-family:var(--f-d);font-weight:400;font-size:13px;
+  letter-spacing:.08em;text-transform:uppercase}
+.nav a{padding-bottom:2px;border-bottom:1px solid transparent}
+.nav a:hover{border-color:var(--red);color:var(--red)}
+.tel{font-family:var(--f-m);font-size:11px;letter-spacing:.02em}
+
+/* Выходные данные, как в журнале */
+.issue{display:flex;justify-content:space-between;padding:7px 0;
+  border-bottom:1px solid var(--line);font-family:var(--f-m);font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+.issue b{color:var(--red);font-weight:400}
+
+/* ── Разворот ── */
+.spread{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:0;
+  border-bottom:2px solid var(--ink)}
+.col-l{padding:44px 44px 44px 0;border-right:1px solid var(--line)}
+.col-r{padding:44px 0 44px 44px}
+
+.kicker{font-family:var(--f-m);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--red);display:flex;align-items:center;gap:10px}
+.kicker::after{content:'';flex:1;height:1px;background:var(--red);opacity:.4}
+
+h1{font-family:var(--f-d);font-weight:500;font-size:clamp(46px,6.2vw,104px);line-height:.86;
+  letter-spacing:-.01em;text-transform:uppercase;margin-top:20px}
+h1 em{font-style:normal;color:var(--red)}
+h1 small{display:block;font-size:.34em;font-weight:300;letter-spacing:.04em;
+  color:var(--ink2);margin-top:18px;line-height:1.15}
+
+.sub{margin-top:26px;max-width:40ch;font-size:15.5px;line-height:1.6;color:var(--ink2)}
+
+.act{display:flex;gap:14px;align-items:center;margin-top:32px;flex-wrap:wrap}
+.btn{font-family:var(--f-d);font-weight:500;font-size:14px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--red);color:var(--paper2);padding:15px 26px}
+.btn:hover{background:var(--ink)}
+.btn2{font-family:var(--f-d);font-weight:400;font-size:14px;letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:2px solid var(--ink);padding-bottom:3px}
+.btn2:hover{color:var(--red);border-color:var(--red)}
+
+/* Табличка показателей — как выходные данные */
+.facts{margin-top:44px;border-top:1px solid var(--line)}
+.facts div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:11px 0;border-bottom:1px solid var(--line)}
+.facts dt{font-family:var(--f-m);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.facts dd{font-family:var(--f-d);font-weight:500;font-size:21px;letter-spacing:.01em}
+
+/* ── Чертёж на бумаге ── */
+.plate{position:relative}
+.plate__hd{display:flex;justify-content:space-between;font-family:var(--f-m);font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);
+  padding-bottom:9px;border-bottom:1px solid var(--ink)}
+.plate svg{display:block;width:100%;height:auto;margin-top:12px}
+.plate__ft{display:flex;justify-content:space-between;font-family:var(--f-m);font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);
+  padding-top:9px;border-top:1px solid var(--ink);margin-top:8px}
+
+.edge{stroke:var(--ink);stroke-width:1.5;fill:none}
+.dl{stroke:var(--red);stroke-width:1}
+.dtxt{font-family:var(--f-m);font-size:11px;fill:var(--red)}
+.ltxt{font-family:var(--f-d);font-weight:400;font-size:13px;fill:var(--ink);
+  letter-spacing:.06em;text-transform:uppercase}
+.ltxt tspan{font-family:var(--f-m);font-size:9px;fill:var(--ink3);text-transform:none;letter-spacing:.02em}
+.lead{stroke:var(--ink);stroke-width:1;fill:none}
+.dot{fill:var(--red)}
+
+.draw2{opacity:0;animation:f .55s ease forwards}
+@keyframes f{to{opacity:1}}
+
+@media(max-width:1000px){
+  .spread{grid-template-columns:1fr}
+  .col-l{padding:32px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .col-r{padding:32px 0}
+  .nav{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand"><b>Ровно</b><span>ремонт квартир под ключ</span></div>
+    <nav class="nav"><a href="#">Смета</a><a href="#">Узлы</a><a href="#">Этапы</a><a href="#">Объекты</a><a href="#">Договор</a></nav>
+    <div class="tel">+7 000 000-00-00</div>
+  </header>
+
+  <div class="issue">
+    <span>Казань · Челны · Нижнекамск</span>
+    <span>Лист <b>01</b> — узел примыкания</span>
+    <span>214 объектов с 2014</span>
+  </div>
+
+  <section class="spread">
+    <div class="col-l">
+      <p class="kicker">Разрез 1—1 · пол / стена</p>
+      <h1>Разница<br>в пяти<br><em>слоях</em>
+        <small>Всё, что видно после ремонта,<br>стоит одинаково</small></h1>
+      <p class="sub">Пять слоёв, которых потом не увидеть и не переделать, не сломав чистовую
+        отделку. Именно на них экономят те, кто называет цену вдвое ниже.</p>
+      <div class="act">
+        <a class="btn" href="#">Рассчитать смету</a>
+        <a class="btn2" href="#">Все узлы</a>
+      </div>
+      <dl class="facts">
+        <div><dt>Работы, под ключ</dt><dd>от 9 900 ₽/м²</dd></div>
+        <div><dt>Срок на 60 м²</dt><dd>62 дня</dd></div>
+        <div><dt>Отклонение сметы</dt><dd>±3 %</dd></div>
+        <div><dt>Гарантия на инженерию</dt><dd>5 лет</dd></div>
+      </dl>
+    </div>
+
+    <figure class="col-r plate">
+      <div class="plate__hd"><span>Узел 01 · разрез</span><span>М 1:2</span></div>
+      <svg viewBox="0 0 880 620" role="img" aria-label="Разрез узла примыкания пола к стене">
+        <defs>
+          <pattern id="conc2" width="15" height="15" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="4" r="1.2" fill="#15150F"/><circle cx="11" cy="11" r="1.2" fill="#15150F"/>
+            <path d="M8 2l2.2 3.4H5.8z" fill="#15150F" opacity=".55"/>
+          </pattern>
+          <pattern id="iso2" width="20" height="10" patternUnits="userSpaceOnUse">
+            <path d="M0 5q5-5.5 10 0t10 0" fill="none" stroke="#15150F" stroke-width="1.1"/>
+          </pattern>
+          <pattern id="scr2" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="10" stroke="#15150F" stroke-width="1"/>
+          </pattern>
+          <pattern id="plas2" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#15150F" stroke-width=".9"/>
+          </pattern>
+        </defs>
+
+        <g class="draw2" style="animation-delay:.05s">
+          <rect x="110" y="452" width="600" height="92" fill="url(#conc2)" opacity=".8"/><rect x="110" y="452" width="600" height="92" class="edge"/>
+          <rect x="222" y="418" width="488" height="34" fill="url(#iso2)" opacity=".7"/><rect x="222" y="418" width="488" height="34" class="edge"/>
+          <rect x="222" y="346" width="488" height="72" fill="url(#scr2)" opacity=".45"/><rect x="222" y="346" width="488" height="72" class="edge"/>
+          <rect x="222" y="338" width="488" height="8" fill="#15150F" opacity=".18"/><rect x="222" y="338" width="488" height="8" class="edge"/>
+          <rect x="222" y="318" width="488" height="20" fill="#15150F" opacity=".3"/><rect x="222" y="318" width="488" height="20" class="edge"/>
+        </g>
+
+        <g class="draw2" style="animation-delay:.16s">
+          <rect x="110" y="64" width="92" height="388" fill="url(#conc2)" opacity=".8"/><rect x="110" y="64" width="92" height="388" class="edge"/>
+          <rect x="202" y="64" width="22" height="388" fill="url(#plas2)" opacity=".55"/><rect x="202" y="64" width="22" height="388" class="edge"/>
+          <rect x="224" y="64" width="6" height="388" fill="#15150F" opacity=".3"/><rect x="224" y="64" width="6" height="388" class="edge"/>
+        </g>
+
+        <g class="draw2" style="animation-delay:.28s">
+          <rect x="214" y="318" width="8" height="134" fill="var(--red)" opacity=".8"/>
+          <rect x="214" y="318" width="8" height="134" class="edge"/>
+        </g>
+
+        <!-- Размерная цепочка, красным -->
+        <g class="draw2" style="animation-delay:.42s">
+          <line x1="752" y1="318" x2="752" y2="544" class="dl"/>
+          <g stroke="var(--red)" stroke-width="1">
+            <line x1="726" y1="318" x2="762" y2="318"/><line x1="726" y1="338" x2="762" y2="338"/>
+            <line x1="726" y1="346" x2="762" y2="346"/><line x1="726" y1="418" x2="762" y2="418"/>
+            <line x1="726" y1="452" x2="762" y2="452"/>
+          </g>
+          <text class="dtxt" x="770" y="332">12</text>
+          <text class="dtxt" x="770" y="348">3</text>
+          <text class="dtxt" x="770" y="386">60</text>
+          <text class="dtxt" x="770" y="440">50</text>
+          <line x1="202" y1="42" x2="230" y2="42" class="dl"/>
+          <line x1="202" y1="36" x2="202" y2="58" class="dl"/><line x1="230" y1="36" x2="230" y2="58" class="dl"/>
+          <text class="dtxt" x="238" y="46">20 + 2</text>
+        </g>
+
+        <g class="draw2" style="animation-delay:.6s">
+          <circle class="dot" cx="450" cy="380" r="3.4"/><path class="lead" d="M450 380 L450 232 L540 232"/>
+          <text class="ltxt" x="548" y="228">Стяжка 60 мм<tspan x="548" dy="15">полусухая, армирована фиброй</tspan></text>
+
+          <circle class="dot" cx="450" cy="435" r="3.4"/><path class="lead" d="M450 435 L450 500 L540 500"/>
+          <text class="ltxt" x="548" y="496">Звукоизоляция 50 мм<tspan x="548" dy="15">минеральная, под стяжку</tspan></text>
+
+          <circle class="dot" cx="213" cy="158" r="3.4"/><path class="lead" d="M213 158 L330 158 L330 122 L420 122"/>
+          <text class="ltxt" x="428" y="118">Штукатурка по маякам<tspan x="428" dy="15">отклонение ≤ 2 мм на 2 м</tspan></text>
+
+          <circle class="dot" cx="218" cy="386" r="3.4"/><path class="lead" d="M218 386 L140 386 L140 588"/>
+          <text class="ltxt" x="108" y="602">Демпферная лента 8 мм</text>
+        </g>
+      </svg>
+      <div class="plate__ft"><span>РОВНО · спецификация</span><span>лист 1 / 6</span></div>
+    </figure>
+  </section>
+
+</div>
+</body>
+</html>

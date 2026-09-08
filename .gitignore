@@ -1,0 +1,5 @@
+.DS_Store
+**/.DS_Store
+
+# Исходники генераций: тяжёлые PNG по 2 МБ, в вёрстку идут webp из media/.
+web/media/src/

@@ -1,0 +1,149 @@
+/* Сброс, типографика, кнопки, движение. Ни одного хекса: всё из tokens.css. */
+
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0;padding:0}
+
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font:400 var(--fs-body)/1.6 var(--f-b);
+  font-synthesis-weight:none;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+img,svg,video{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit;background:none;border:none}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+
+/* Фокус виден всегда — это не опция. */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+:focus:not(:focus-visible){outline:none}
+
+::selection{background:var(--accent-soft);color:var(--ink)}
+
+/* ── Сетка ───────────────────────────────────────────────────────────── */
+
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:var(--gut)}
+.sec{padding-block:var(--sec)}
+.sec--tight{padding-block:clamp(56px,6vw,96px)}
+
+/* ── Типографика ─────────────────────────────────────────────────────── */
+
+h1,h2,h3,h4{font-family:var(--f-d);font-weight:600;text-wrap:balance}
+
+.h1{font-size:var(--fs-h1);line-height:.98;letter-spacing:-.03em}
+.h2{font-size:var(--fs-h2);line-height:1.02;letter-spacing:-.025em}
+.h3{font-size:var(--fs-h3);line-height:1.15;letter-spacing:-.015em}
+.h4{font-size:var(--fs-h4);font-weight:500;line-height:1.3;letter-spacing:-.01em}
+
+.lead{font-size:var(--fs-body-l);line-height:1.55;color:var(--ink-2);max-width:60ch}
+.cap{font-size:var(--fs-cap);line-height:1.45;color:var(--ink-3)}
+.mut{color:var(--ink-2)}
+
+/* Акцентная часть заголовка. Ровно одна на заголовок. */
+.acc{color:var(--accent-ink)}
+
+/* Данные всегда моноширинные: цифра, набранная гротеском, читается
+   как маркетинг, а набранная моноширинным — как факт. */
+.d{font-family:var(--f-m);font-size:var(--fs-data);letter-spacing:.02em;font-weight:400}
+.d-xl{font-family:var(--f-m);font-size:var(--fs-data-xl);font-weight:500;line-height:1;letter-spacing:-.02em}
+
+.eye{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--f-m);font-size:var(--fs-eyebrow);font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+}
+.eye::before{content:'';width:18px;height:1px;background:var(--line-strong);flex:none}
+.on-dark .eye,.dark .eye{color:var(--dark-ink-2)}
+.on-dark .eye::before,.dark .eye::before{background:var(--dark-line)}
+
+/* Шапка секции: eyebrow, заголовок, подзаголовок */
+.head{display:grid;gap:16px;margin-bottom:var(--head-gap);max-width:64ch}
+.head .lead{margin-top:2px}
+
+/* ── Кнопки ──────────────────────────────────────────────────────────── */
+
+.btn{
+  display:inline-flex;align-items:center;gap:14px;
+  height:52px;padding:0 8px 0 24px;border-radius:var(--r-pill);
+  font-size:15px;font-weight:500;white-space:nowrap;
+  transition:background .22s var(--ease),color .22s var(--ease),border-color .22s var(--ease),transform .22s var(--ease);
+}
+.btn:active{transform:scale(.985)}
+
+.btn__arw{
+  flex:none;display:grid;place-items:center;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--surface);color:var(--ink);
+  transition:transform .22s var(--ease);
+}
+.btn:hover .btn__arw{transform:translateX(3px)}
+.btn__arw svg{width:13px;height:13px}
+
+.btn--pri{background:var(--ink);color:var(--canvas)}
+.btn--pri:hover{background:var(--dark-surface)}
+
+.btn--sec{padding:0 24px;border:1px solid var(--line-strong);color:var(--ink)}
+.btn--sec:hover{background:var(--surface);border-color:var(--ink)}
+
+.btn--ghost{padding:0 4px 0 0;height:auto;color:var(--ink);font-weight:500}
+.btn--ghost u{text-decoration:none;box-shadow:inset 0 -1px 0 var(--line-strong);padding-bottom:3px;transition:box-shadow .22s var(--ease)}
+.btn--ghost:hover u{box-shadow:inset 0 -1px 0 var(--ink)}
+
+/* На тёмном кнопки инвертируются */
+.on-dark .btn--pri,.dark .btn--pri{background:var(--dark-ink);color:var(--dark-bg)}
+.on-dark .btn--pri:hover,.dark .btn--pri:hover{background:var(--surface)}
+.on-dark .btn--pri .btn__arw,.dark .btn--pri .btn__arw{background:var(--dark-bg);color:var(--dark-ink)}
+.on-dark .btn--sec,.dark .btn--sec{border-color:var(--dark-line);color:var(--dark-ink)}
+.on-dark .btn--sec:hover,.dark .btn--sec:hover{background:var(--dark-surface);border-color:var(--dark-ink-2)}
+
+.btn--wide{width:100%;justify-content:space-between}
+
+/* ── Чипы ────────────────────────────────────────────────────────────── */
+
+.chip{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:40px;padding:0 16px;border-radius:var(--r-pill);
+  border:1px solid var(--line-strong);color:var(--ink-2);
+  font-size:14px;line-height:1.2;text-align:center;
+  transition:background .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease);
+}
+.chip:hover{background:var(--surface);color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--canvas);border-color:transparent}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ── Карточки и панели ───────────────────────────────────────────────── */
+
+.panel{background:var(--surface);border-radius:var(--r-panel);border:1px solid var(--line);box-shadow:var(--shadow-rest)}
+.cell{background:var(--surface);border-radius:var(--r-cell);border:1px solid var(--line)}
+
+/* Единая обработка всех фотографий — на уровне CSS, не в фотошопе.
+   Так кадры, снятые в разное время, читаются как один набор. */
+.ph{position:relative;overflow:hidden;border-radius:var(--r-photo);background:var(--surface-sunk)}
+.ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.04)}
+.ph--click img{transition:transform .7s var(--ease)}
+.ph--click:hover img{transform:scale(1.02)}
+
+/* ── Движение ────────────────────────────────────────────────────────── */
+
+.rv{opacity:0;transform:translateY(20px);filter:blur(6px);
+  transition:opacity .62s var(--ease),transform .62s var(--ease),filter .62s var(--ease)}
+.rv.on{opacity:1;transform:none;filter:none}
+.rv-1{transition-delay:.07s} .rv-2{transition-delay:.14s} .rv-3{transition-delay:.21s}
+.rv-4{transition-delay:.28s} .rv-5{transition-delay:.35s} .rv-6{transition-delay:.42s}
+
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;filter:none;transition:none}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
