@@ -450,7 +450,15 @@
 .wk-c__n b{font-family:var(--f-d);font-size:21px;font-weight:600;letter-spacing:-.02em}
 .wk-c__n span{font-family:var(--f-m);font-size:11px;color:var(--accent-ink)}
 .wk-c__t{font-size:14px;color:var(--ink-2);line-height:1.45}
-.diary__foot{margin-top:28px;max-width:70ch}
+.wks{display:flex;gap:4px;margin-top:22px}
+.wks li{flex:1;display:grid;gap:7px;justify-items:start}
+.wks i{display:block;width:100%;height:2px;border-radius:2px;background:var(--line);
+  transition:background .3s var(--ease)}
+.wks span{font-family:var(--f-m);font-size:10px;color:var(--ink-3);
+  transition:color .3s var(--ease)}
+.wks .on i{background:var(--accent)}
+.wks .on span{color:var(--ink)}
+.diary__foot{margin-top:24px;max-width:70ch}
 
 /* ── Селектор ЖК ─────────────────────────────────────────────────────── */
 .nb__panel{display:grid;overflow:hidden}

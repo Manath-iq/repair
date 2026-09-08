@@ -146,6 +146,7 @@ const WEEKS = [
 ];
 
 const rail = document.getElementById('diary-rail');
+const wks = document.getElementById('wks');
 if (rail) {
   rail.innerHTML = WEEKS.map(([txt, paid], i) => `
     <article class="wk-c">
@@ -153,6 +154,24 @@ if (rail) {
       <div class="wk-c__n"><b>Неделя ${i + 1}</b><span>оплачено ${paid}%</span></div>
       <p class="wk-c__t">${txt}</p>
     </article>`).join('');
+
+  // Шкала недель под лентой. Делений ровно столько же, сколько карточек,
+  // и заполняются они по фактической прокрутке, а не по таймеру.
+  if (wks) {
+    wks.innerHTML = WEEKS.map((_, i) => `<li><i></i><span>${i + 1}</span></li>`).join('');
+    const ticks = [...wks.children];
+    const scroller = rail.parentElement;
+    const paint = () => {
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      const seen = max <= 0
+        ? ticks.length
+        : Math.round(1 + (ticks.length - 1) * (scroller.scrollLeft / max));
+      ticks.forEach((t, i) => t.classList.toggle('on', i < seen));
+    };
+    scroller.addEventListener('scroll', paint, { passive: true });
+    addEventListener('resize', paint, { passive: true });
+    paint();
+  }
 }
 
 initCalc(document.querySelector('[data-calc]'));
